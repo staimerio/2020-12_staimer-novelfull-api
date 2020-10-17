@@ -37,6 +37,7 @@ class NovelFull(object):
         self.host = app.config.get("NOVELFULL_EN_HOST")
         self.url_base = app.config.get("NOVELFULL_EN_URL")
         self.lang = app.config.get("NOVELFULL_EN_LANG")
+        self.langname = app.config.get("NOVELFULL_EN_LANGNAME")
 
 
 def get_search(search, limit):
@@ -70,8 +71,10 @@ def get_list_json_items(instance, page, limit):
         """Validate if has the max"""
         if len(_items) >= limit:
             break
+        """If lang is different than en(english), add lang to slug"""
+        _title = "{0}-{1}".format(_item_json['title'], instance.langname)
         """Slugify the item's title"""
-        _item_json['slug'] = slugify(_item_json['title'])
+        _item_json['slug'] = slugify(_title)
         """Add item"""
         _items.append(_item_json)
     """Return items"""
