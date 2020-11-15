@@ -36,7 +36,7 @@ def get_chapters_by_slug(req: Request, res: Response, next: Next):
     """Get all chapters from novel page"""
     _novel = novelfull.get_chapters_by_slug(
         req.param('slug_novel'),
-        req.args.getlist('chapters_ids'),
+        req.param('chapters_ids'),
         int(req.param('limit'))
     )
     """Check if exist an error"""
